@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../Pages/Providers/AuthProvider";
@@ -15,11 +16,16 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    if (data.password.length != 5) {
+      toast.error("Password must be 5 digit");
+      return;
+    }
     const userData = { ...data, status: "pending", balance: 0 };
     console.log(userData);
     axiosPublic.post("/register", userData).then((res) => {
       console.log("text", res.data);
       login(res.data);
+      toast.error("Register Successful");
       navigate("/");
     });
   };
@@ -48,16 +54,13 @@ const Register = () => {
           </div>
           <div>
             <label htmlFor="name" className="block mb-2 text-sm">
-              Name
+              Your Role
             </label>
             <select
               className="select select-bordered w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
               name="role"
               {...register("role")}
             >
-              <option disabled selected>
-                Who shot first?
-              </option>
               <option value={"user"}>user</option>
               <option value={"agent"}>agent</option>
             </select>
@@ -98,7 +101,7 @@ const Register = () => {
           <div>
             <div className="flex justify-between mb-2">
               <label htmlFor="password" className="text-sm">
-                Password
+                Enter 5 digit pin
               </label>
             </div>
             <input
@@ -130,6 +133,7 @@ const Register = () => {
           </p>
         </div>
       </form>
+      <Toaster />
     </div>
   );
 };

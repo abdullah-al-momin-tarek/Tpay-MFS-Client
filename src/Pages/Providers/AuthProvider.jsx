@@ -2,9 +2,9 @@ import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext(null);
 
-// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,8 +21,14 @@ const AuthProvider = ({ children }) => {
           if (data) {
             setUser(data);
           }
+          setLoading(false);
         })
-        .catch((err) => console.log("Token verification error", err));
+        .catch((err) => {
+          console.log("Token verification error", err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -41,6 +47,7 @@ const AuthProvider = ({ children }) => {
       .then((data) => {
         if (data) {
           setUser(data);
+          setLoading(false);
         }
       })
       .catch((err) => console.log("Token verification error", err));
@@ -50,7 +57,9 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setUser(null);
   };
-  const item = { user, login, logout };
+
+  const item = { user, login, logout, loading };
+
   return <AuthContext.Provider value={item}>{children}</AuthContext.Provider>;
 };
 

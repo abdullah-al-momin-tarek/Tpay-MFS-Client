@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../Pages/Providers/AuthProvider";
 
@@ -13,24 +13,22 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const navigate = useNavigate();
   const onSubmit = (data) => {
-    // console.log(data);
-    // axiosPublic
-    //   .post("/login", data)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     const { token } = response.data;
-    //     login(token); // Assuming login function stores token in context
-    //   })
-    //   .catch((error) => {
-    //     console.error("Login failed:", error);
-    //     // Handle error, show message, etc.
-    //   });
+    console.log(data);
 
-    axios.post("http://localhost:5000/login", data).then((data) => {
-      console.log("dd", data);
-    });
+    axiosPublic
+      .post("/login", data)
+      .then((response) => {
+        console.log(response.data);
+        const { token } = response.data;
+        login(token);
+        toast.error("Register Successful");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   };
 
   return (
@@ -91,6 +89,7 @@ const Login = () => {
           </p>
         </div>
       </form>
+      <Toaster />
     </div>
   );
 };

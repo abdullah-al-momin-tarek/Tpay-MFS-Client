@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SendMoney = () => {
   const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -10,6 +12,16 @@ const SendMoney = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    const sendData = { ...data, id: user._id };
+    console.log(sendData);
+    axiosPublic
+      .post("/send", sendData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   console.log(user);
   return (
