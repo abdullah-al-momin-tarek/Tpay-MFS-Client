@@ -4,28 +4,37 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import Dashboard from "./Dashboard/Dashboard";
+import SendMoney from "./Dashboard/UserDashboard/SendMoney";
 import "./index.css";
 import AuthProvider from "./Pages/Providers/AuthProvider";
-import Root from "./Root/Root";
+import PrivateRoute from "./Route/PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: "/",
-        element: <Dashboard />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
+        path: "/sendMoney",
+        element: (
+          <PrivateRoute>
+            <SendMoney />
+          </PrivateRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

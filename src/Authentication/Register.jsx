@@ -1,24 +1,26 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../Pages/Providers/AuthProvider";
 
 const Register = () => {
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    axiosPublic.post("/register", data).then((data) => {
-      console.log("text", data.data);
-      login(data.data);
+    const userData = { ...data, status: "pending", balance: 0 };
+    console.log(userData);
+    axiosPublic.post("/register", userData).then((res) => {
+      console.log("text", res.data);
+      login(res.data);
+      navigate("/");
     });
   };
 
@@ -40,6 +42,25 @@ const Register = () => {
               {...register("displayName", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.displayName && (
+              <span className="text-red-600">This field is required</span>
+            )}
+          </div>
+          <div>
+            <label htmlFor="name" className="block mb-2 text-sm">
+              Name
+            </label>
+            <select
+              className="select select-bordered w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
+              name="role"
+              {...register("role")}
+            >
+              <option disabled selected>
+                Who shot first?
+              </option>
+              <option value={"user"}>user</option>
+              <option value={"agent"}>agent</option>
+            </select>
             {errors.displayName && (
               <span className="text-red-600">This field is required</span>
             )}
