@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { AuthContext } from "../Pages/Providers/AuthProvider";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
+  const { login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -9,7 +14,13 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    console.log(data);
+    axiosPublic.post("/register", data).then((data) => {
+      console.log("text", data.data);
+      login(data.data);
+    });
+  };
 
   return (
     <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 dark:bg-gray-50 dark:text-gray-800 mx-auto mt-12">
@@ -29,6 +40,9 @@ const Register = () => {
               {...register("displayName", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.displayName && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
           <div>
             <label htmlFor="Phone" className="block mb-2 text-sm">
@@ -41,6 +55,9 @@ const Register = () => {
               {...register("phone", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.phone && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
           <div>
             <label htmlFor="email" className="block mb-2 text-sm">
@@ -53,6 +70,9 @@ const Register = () => {
               {...register("email", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.email && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
           <div>
             <div className="flex justify-between mb-2">
@@ -67,6 +87,9 @@ const Register = () => {
               {...register("password", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.password && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
         </div>
         <div className="space-y-2">

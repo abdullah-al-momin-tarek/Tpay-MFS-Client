@@ -30,6 +30,9 @@ const Login = () => {
               {...register("username", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.username && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
           <div>
             <div className="flex justify-between mb-2">
@@ -45,6 +48,9 @@ const Login = () => {
               {...register("password", { required: true })}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
+            {errors.password && (
+              <span className="text-red-600">This field is required</span>
+            )}
           </div>
         </div>
         <div className="space-y-2">
