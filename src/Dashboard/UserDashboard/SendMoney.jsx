@@ -11,19 +11,17 @@ const SendMoney = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    const sendData = { ...data, id: user._id };
-    console.log(sendData);
-    axiosPublic
-      .post("/send", sendData)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err);
-      });
+  const onSubmit = async (data) => {
+    try {
+      const sendData = { ...data, id: user._id };
+      const response = await axiosPublic.post("/send", sendData);
+      console.log(response);
+      toast.success("Money sent successfully");
+    } catch (err) {
+      console.log(err);
+      const errorMessage = err.response?.data?.error || "An error occurred";
+      toast.error(errorMessage);
+    }
   };
   console.log(user);
   return (
