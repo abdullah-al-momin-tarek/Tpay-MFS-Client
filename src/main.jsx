@@ -5,6 +5,7 @@ import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import Dashboard from "./Dashboard/Dashboard";
 import Overview from "./Dashboard/SharedDashboard/Overview";
+import CashOut from "./Dashboard/UserDashboard/CashOut";
 import SendMoney from "./Dashboard/UserDashboard/SendMoney";
 import "./index.css";
 import AuthProvider from "./Pages/Providers/AuthProvider";
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Overview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/cashOut",
+        element: (
+          <PrivateRoute>
+            <CashOut />
           </PrivateRoute>
         ),
       },

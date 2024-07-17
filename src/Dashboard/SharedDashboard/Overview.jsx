@@ -5,7 +5,7 @@ const Overview = () => {
   console.log(user);
 
   return (
-    <div className="max-w-xl mt-12 p-5 sm:flex sm:space-x-6 dark:bg-gray-50 dark:text-gray-800 mx-auto">
+    <div className="max-w-xl mt-12 p-5 sm:flex sm:space-x-6 dark:bg-gray-50  dark:text-gray-800 mx-auto">
       <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
         <img
           src="https://i.ibb.co/02RJwQc/user.jpg"
@@ -17,7 +17,10 @@ const Overview = () => {
         <div className="flex justify-between gap-32">
           <div>
             <h2 className="text-2xl font-semibold">{user?.name}</h2>
-            <span className="text-sm dark:text-gray-600">{user?.role}</span>
+            <span className="text-sm dark:text-gray-600">
+              <span className="font-bold">Role: </span>
+              {user?.role}
+            </span>
           </div>
           <h3 className="font-bold flex items-center">
             Balance: {user?.balance}
