@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { AiTwotoneFileText } from "react-icons/ai";
 import { BsFillSendArrowUpFill } from "react-icons/bs";
-import { FaHistory, FaHome } from "react-icons/fa";
+import { FaHistory, FaHome, FaUserCog } from "react-icons/fa";
+import { GrSystem } from "react-icons/gr";
 import { IoIosLogOut } from "react-icons/io";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { TiThMenu } from "react-icons/ti";
@@ -9,7 +11,7 @@ import useAuth from "../Hooks/useAuth";
 
 const Dashboard = () => {
   // const [isAdmin] = useAdmin();
-  const role = "user";
+  const role = "agent";
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { logout } = useAuth();
 
@@ -69,35 +71,48 @@ const Dashboard = () => {
               </li>
             </>
           )}
-          {/* {role === "agent" && (
+          {role === "agent" && (
             <>
               <li>
-                <NavLink to="/analytics">
-                  <MdAnalytics />
-                  Analytics
+                <NavLink to="/overview">
+                  <FaHome /> Overview
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/profile">
-                  <ImProfile />
-                  Participant Profile
+                  <AiTwotoneFileText />
+                  Manage Transaction
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/registerCamps">
-                  <MdAppRegistration />
-                  Registered Camps
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/paymentHistory">
-                  <MdOutlinePayment />
-                  Payment History
+                <NavLink to="/history">
+                  <FaHistory />
+                  Transaction History
                 </NavLink>
               </li>
             </>
-          )} */}
-          {/* Shared nav links */}
+          )}
+          {role === "admin" && (
+            <>
+              <li>
+                <NavLink to="/overview">
+                  <FaHome /> Overview
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/userManage">
+                  <FaUserCog /> User Management
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/systemMomitor">
+                  <GrSystem /> System Monitor
+                </NavLink>
+              </li>
+            </>
+          )}
           <div className="divider"></div>
           <li>
             <button onClick={handleLogout}>Logout</button>

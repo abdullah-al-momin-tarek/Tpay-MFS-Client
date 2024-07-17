@@ -5,6 +5,7 @@ import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import Dashboard from "./Dashboard/Dashboard";
 import Overview from "./Dashboard/SharedDashboard/Overview";
+import CashIn from "./Dashboard/UserDashboard/CashIn";
 import CashOut from "./Dashboard/UserDashboard/CashOut";
 import SendMoney from "./Dashboard/UserDashboard/SendMoney";
 import "./index.css";
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CashOut />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/cashin",
+        element: (
+          <PrivateRoute>
+            <CashIn />
           </PrivateRoute>
         ),
       },

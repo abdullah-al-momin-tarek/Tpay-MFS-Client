@@ -28,7 +28,7 @@ const CashIn = () => {
 
   return (
     <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800 mx-auto mt-12">
-      <h1 className="text-2xl font-bold text-center mb-6">Cashout</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">Cash In</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-1 text-sm">
           <label htmlFor="username" className="block dark:text-gray-600">
@@ -47,7 +47,7 @@ const CashIn = () => {
         </div>
         <div className="space-y-1 text-sm">
           <label htmlFor="username" className="block dark:text-gray-600">
-            Enter Casn Out amount
+            Enter amount
           </label>
           <input
             type="number"
@@ -79,7 +79,7 @@ const CashIn = () => {
           type="submit"
           className="block w-full p-3 text-center rounded-sm dark:text-gray-50 dark:bg-violet-600"
         >
-          Cashout
+          Request for Cash In
         </button>
       </form>
       <Toaster />
