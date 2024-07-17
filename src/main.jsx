@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import Dashboard from "./Dashboard/Dashboard";
+import Overview from "./Dashboard/SharedDashboard/Overview";
 import SendMoney from "./Dashboard/UserDashboard/SendMoney";
 import "./index.css";
 import AuthProvider from "./Pages/Providers/AuthProvider";
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SendMoney />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/overview",
+        element: (
+          <PrivateRoute>
+            <Overview />
           </PrivateRoute>
         ),
       },

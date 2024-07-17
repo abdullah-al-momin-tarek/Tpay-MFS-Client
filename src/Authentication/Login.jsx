@@ -22,12 +22,13 @@ const Login = () => {
       .then((response) => {
         console.log(response.data);
         const { token } = response.data;
+        toast.success("Register Successful");
         login(token);
-        toast.error("Register Successful");
         navigate("/");
       })
       .catch((error) => {
         console.error("Login failed:", error);
+        toast.error("Invalid Credential");
       });
   };
 

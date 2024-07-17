@@ -5,11 +5,17 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { TiThMenu } from "react-icons/ti";
 import { NavLink, Outlet } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 const Dashboard = () => {
   // const [isAdmin] = useAdmin();
   const role = "user";
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -33,8 +39,8 @@ const Dashboard = () => {
           {role === "user" && (
             <>
               <li>
-                <NavLink to="/dashboard/home">
-                  <FaHome /> Home
+                <NavLink to="/overview">
+                  <FaHome /> Overview
                 </NavLink>
               </li>
               <li>
@@ -44,19 +50,19 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/cashOut">
+                <NavLink to="/cashOut">
                   <IoIosLogOut />
                   Cash Out
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/cashIn">
+                <NavLink to="/cashIn">
                   <IoArrowDownCircleOutline />
                   Cash In
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/history">
+                <NavLink to="/history">
                   <FaHistory />
                   Transaction History
                 </NavLink>
@@ -66,25 +72,25 @@ const Dashboard = () => {
           {/* {role === "agent" && (
             <>
               <li>
-                <NavLink to="/dashboard/analytics">
+                <NavLink to="/analytics">
                   <MdAnalytics />
                   Analytics
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/profile">
+                <NavLink to="/profile">
                   <ImProfile />
                   Participant Profile
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/registerCamps">
+                <NavLink to="/registerCamps">
                   <MdAppRegistration />
                   Registered Camps
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/paymentHistory">
+                <NavLink to="/paymentHistory">
                   <MdOutlinePayment />
                   Payment History
                 </NavLink>
@@ -93,6 +99,9 @@ const Dashboard = () => {
           )} */}
           {/* Shared nav links */}
           <div className="divider"></div>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
         </ul>
       </div>
 
